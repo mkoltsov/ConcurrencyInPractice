@@ -1,12 +1,11 @@
+import groovy.transform.TupleConstructor
+
 import java.util.concurrent.ArrayBlockingQueue
 import java.util.concurrent.BlockingQueue
 
+@TupleConstructor
 public class FileReaderProducer implements Runnable {
-    private final BlockingQueue<Expando> queue
-
-    FileReaderProducer(queue) {
-        this.queue = queue
-    }
+    private BlockingQueue<Expando> queue
 
     @Override
     void run() {
@@ -19,12 +18,9 @@ public class FileReaderProducer implements Runnable {
     }
 }
 
+@TupleConstructor
 public class FilePublisherConsumer implements Runnable {
-    private final BlockingQueue<Expando> queue
-
-    FilePublisherConsumer(queue) {
-        this.queue = queue
-    }
+    private BlockingQueue<Expando> queue
 
     @Override
     void run() {
@@ -40,6 +36,7 @@ public class FilePublisherConsumer implements Runnable {
 
 BlockingQueue<Expando> queue = new ArrayBlockingQueue<>(50)
 //BlockingQueue<Expando> queue = new LinkedBlockingQueue<>(50)
-new Thread(new FileReaderProducer(queue)).start()
+new Thread(new FileReaderProducer(queue: queue)).start()
 
-(1..Runtime.getRuntime().availableProcessors()).each { new Thread(new FilePublisherConsumer(queue)).start() }
+(1..Runtime.getRuntime().availableProcessors()).each { new Thread(new FilePublisherConsumer(queue: queue)).start() }
+
