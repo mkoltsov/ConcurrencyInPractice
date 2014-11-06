@@ -4,7 +4,7 @@ import java.util.concurrent.ArrayBlockingQueue
 import java.util.concurrent.BlockingQueue
 
 @TupleConstructor
-public class FileReaderProducer implements Runnable {
+public class FileReaderProducer1 implements Runnable {
     private BlockingQueue<Expando> queue
 
     @Override
@@ -19,7 +19,7 @@ public class FileReaderProducer implements Runnable {
 }
 
 @TupleConstructor
-public class FilePublisherConsumer implements Runnable {
+public class FilePublisherConsumer1 implements Runnable {
     private BlockingQueue<Expando> queue
 
     @Override
@@ -36,7 +36,6 @@ public class FilePublisherConsumer implements Runnable {
 
 BlockingQueue<Expando> queue = new ArrayBlockingQueue<>(50)
 //BlockingQueue<Expando> queue = new LinkedBlockingQueue<>(50)
-new Thread(new FileReaderProducer(queue: queue)).start()
-
-(1..Runtime.getRuntime().availableProcessors()).each { new Thread(new FilePublisherConsumer(queue: queue)).start() }
+new Thread(new FileReaderProducer1(queue: queue)).start()
+(1..Runtime.getRuntime().availableProcessors()).each { new Thread(new FilePublisherConsumer1(queue: queue)).start() }
 
