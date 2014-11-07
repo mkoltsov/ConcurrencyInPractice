@@ -1,5 +1,3 @@
-import java.util.concurrent.Semaphore
-
 def bounded  = new Runnable(){
 //    int cnt = 1
 final java.util.concurrent.Semaphore sem = new java.util.concurrent.Semaphore(1)
