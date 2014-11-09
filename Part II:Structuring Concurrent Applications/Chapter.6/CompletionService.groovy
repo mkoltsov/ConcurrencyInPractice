@@ -18,9 +18,9 @@ java.util.concurrent.CompletionService<Double> completionService = new ExecutorC
 }
 
 try {
-    (0..nTasks).eachWithIndex {name, index ->
+    (0..nTasks).eachWithIndex { name, index ->
         Future<Double> f = completionService.take()
-        println "task #$index, value:"+f.get()
+        println "task #$index, value:" + f.get()
     }
 } catch (Exception ex) {
     ex.printStackTrace()
