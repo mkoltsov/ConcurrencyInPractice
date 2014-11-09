@@ -55,7 +55,7 @@ def servlet = new Runnable() {
 
     @Override
     void run() {
-       def val = new Random().nextInt(10)
+        def val = new Random().nextInt(10)
         println "randomness has returned $val"
         cache.compute(new BigInteger(val.toString()))
     }
@@ -83,4 +83,3 @@ new Thread(servlet).start()
 new Thread(servlet).start()
 new Thread(servlet).start()
 new Thread(servlet).start()
-
