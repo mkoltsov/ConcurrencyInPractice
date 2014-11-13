@@ -3,6 +3,7 @@ import groovy.transform.Immutable
 import java.util.concurrent.ConcurrentMap
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.ExecutorService
+
 import java.util.concurrent.atomic.AtomicInteger
 
 public interface Puzzle<P, M> {
