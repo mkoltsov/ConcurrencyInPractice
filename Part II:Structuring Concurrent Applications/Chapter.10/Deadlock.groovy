@@ -1,6 +1,6 @@
 import java.util.concurrent.Executors
 
-def deadBone = new Runnable() {
+class DeadBone {
     private final Object left = new Object()
     private final Object right = new Object()
 
@@ -19,14 +19,36 @@ def deadBone = new Runnable() {
             }
         }
     }
-
-    @Override
-    void run() {
-        println("i'm in")
-    }
 }
 
-Executors.newCachedThreadPool().with {
-    execute(deadBone.doSomething())
-    execute(deadBone.doSomething2())
+def deadMeat = new DeadBone()
+Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors()).with {
+    execute(new Runnable() {
+        @Override
+        void run() {
+           println Thread.currentThread().getName() + "has started"
+            deadMeat.doSomething()
+        }
+    })
+    execute(new Runnable() {
+        @Override
+        void run() {
+            println Thread.currentThread().getName() + "has started"
+            deadMeat.doSomething2()
+        }
+    })
+    execute(new Runnable() {
+        @Override
+        void run() {
+            println Thread.currentThread().getName() + "has started"
+            deadMeat.doSomething()
+        }
+    })
+    execute(new Runnable() {
+        @Override
+        void run() {
+            println Thread.currentThread().getName() + "has started"
+            deadMeat.doSomething2()
+        }
+    })
 }
