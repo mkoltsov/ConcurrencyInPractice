@@ -26,7 +26,7 @@ Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors()).with {
     execute(new Runnable() {
         @Override
         void run() {
-           println Thread.currentThread().getName() + "has started"
+            println Thread.currentThread().getName() + "has started"
             deadMeat.doSomething()
         }
     })
