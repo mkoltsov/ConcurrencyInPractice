@@ -1,3 +1,4 @@
+//Simple, huh?
 ServerSocket socket = new ServerSocket(80)
 while (true) {
     Socket connection = socket.accept()
