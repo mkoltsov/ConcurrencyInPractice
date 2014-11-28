@@ -1,5 +1,8 @@
 import java.util.concurrent.Executors
 
+/**
+ * Uncompleted
+ */
 class SimulatedCas {
     private int value
 
@@ -18,14 +21,34 @@ class SimulatedCas {
     }
 }
 
+class CASCounter {
+    private SimulatedCas value
+
+    def get() {
+        value.get()
+    }
+
+    def increment() {
+        def i
+
+        i = value.get()
+        while (i != value.compareAndSwap(i, i + 1)) {
+            i = value.get()
+        }
+        i + 1
+    }
+}
+
 def simCas = new SimulatedCas(value: 10)
+def casCnt = new CASCounter(value: simCas)
 
 def task9 = new Runnable() {
     def randomness = { new Random().nextInt(10) }
 
     @Override
     void run() {
-        println simCas.compareAndSet(10, randomness())
+//        println simCas.compareAndSet(10, randomness())
+        println casCnt.increment()
     }
 }
 
@@ -36,3 +59,4 @@ Executors.newCachedThreadPool().with {
     execute(task9)
     execute(task9)
 }
+
