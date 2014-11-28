@@ -1,8 +1,5 @@
 import java.util.concurrent.Executors
 
-/**
- * Uncompleted
- */
 class SimulatedCas {
     private int value
 
