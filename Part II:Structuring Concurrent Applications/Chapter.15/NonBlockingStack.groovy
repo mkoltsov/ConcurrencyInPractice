@@ -50,5 +50,3 @@ class ConcurrentStack<E> {
     }
 
 }
-
-println "${new Date()}"
