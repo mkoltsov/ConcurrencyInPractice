@@ -44,8 +44,7 @@ def task9 = new Runnable() {
 
     @Override
     void run() {
-//        println simCas.compareAndSet(10, randomness())
-        println casCnt.increment()
+            println casCnt.increment()
     }
 }
 
