@@ -1,5 +1,10 @@
+import java.util.concurrent.Executors
 import java.util.concurrent.atomic.AtomicReference
 
+/**
+ * Treiber's algorithm'86
+ * @param < E >
+ */
 class ConcurrentStack<E> {
     AtomicReference<Node<E>> top = new AtomicReference<>()
 
@@ -30,8 +35,6 @@ class ConcurrentStack<E> {
             newHead = oldHead.next
             newHead.next = oldHead
         }
-
-
         clos()
         while (!top.compareAndSet(oldHead, newHead)) {
             clos()
@@ -40,13 +43,37 @@ class ConcurrentStack<E> {
     }
 
     private static class Node<E> {
-        def final E iten
+        def final E item
         def Node<E> next
 
         public Node(E item) {
-            this.iten = item
+            this.item = item
         }
 
     }
 
+}
+
+def stack = new ConcurrentStack<Integer>()
+def task = new Runnable() {
+    @Override
+    void run() {
+        def rnd = new Random().nextInt(10)
+        println "i'm pushing $rnd"
+        stack.push(rnd)
+        println stack.pop()
+    }
+}
+
+Executors.newCachedThreadPool().with {
+    execute(task)
+    execute(task)
+    execute(task)
+    execute(task)
+    execute(task)
+    execute(task)
+    execute(task)
+    execute(task)
+    execute(task)
+    execute(task)
 }
